@@ -4,7 +4,7 @@ Kanban-style task management application for personal or team productivity.
 
 ## Status
 
-Phase 0 project baseline is complete. See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for the complete delivery plan.
+The simple MVP and automated API tests are complete. See [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) for the complete delivery plan.
 
 ## Simple stack
 
@@ -25,6 +25,14 @@ npm start
 The API listens on `http://localhost:3000` by default.
 
 Open `http://localhost:3000` in a browser to use the Kanban board.
+
+### Test
+
+```bash
+npm test
+```
+
+The test suite covers the health endpoint, board counters, task validation, task updates, workload balancing, task deletion, and member creation.
 
 ## Source requirements
 

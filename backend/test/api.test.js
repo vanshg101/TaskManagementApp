@@ -94,3 +94,21 @@ test("calculates overloaded users when more than five tasks are in progress", as
   assert.equal(user.inProgressTaskCount, 6);
   assert.equal(user.overloaded, true);
 });
+
+test("deletes tasks and creates members", async () => {
+  const createdTask = await request("/api/tasks", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ title: "Temporary task" })
+  });
+  const deleted = await request(`/api/tasks/${createdTask.body.id}`, { method: "DELETE" });
+  assert.equal(deleted.response.status, 204);
+
+  const member = await request("/api/members", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name: "Neha" })
+  });
+  assert.equal(member.response.status, 201);
+  assert.equal(member.body.name, "Neha");
+});

@@ -50,9 +50,19 @@ $("delete-task").addEventListener("click", async () => {
   try { await request(`/api/tasks/${id}`, { method: "DELETE" }); $("task-dialog").close(); await load(); } catch (error) { show(error.message); }
 });
 $("add-member").addEventListener("click", async () => {
-  const name = prompt("Member name");
-  if (!name?.trim()) return;
-  try { await request("/api/members", { method: "POST", body: JSON.stringify({ name }) }); await load(); } catch (error) { show(error.message); }
+  $("member-name").value = "";
+  $("member-dialog").showModal();
+});
+$("member-cancel").addEventListener("click", () => $("member-dialog").close());
+$("member-form").addEventListener("submit", async (event) => {
+  event.preventDefault();
+  try {
+    await request("/api/members", { method: "POST", body: JSON.stringify({ name: $("member-name").value }) });
+    $("member-dialog").close();
+    await load();
+  } catch (error) {
+    show(error.message);
+  }
 });
 $("task-form").addEventListener("submit", async (event) => {
   event.preventDefault();
