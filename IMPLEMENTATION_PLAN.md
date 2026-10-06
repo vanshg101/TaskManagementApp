@@ -33,16 +33,15 @@ Build a Kanban-style task management application for personal or team productivi
 - If a user has more than five such tasks, mark that user as overloaded.
 - Display an accessible red pulsing warning on the user's team avatar.
 
-## Technical direction
+## Simple implementation direction
 
-The default implementation stack is:
+To keep the assessment solution small and easy to explain, the first working version uses:
 
-- React and TypeScript for the frontend.
-- Node.js, Express, and TypeScript for the backend.
-- PostgreSQL with Prisma for persistence.
-- Vitest and Supertest for automated tests.
+- A single Node.js server with the built-in HTTP module.
+- A plain HTML, CSS, and browser JavaScript frontend.
+- A small server-side data store with clear API boundaries.
 
-Existing repository conventions take precedence if a GitHub repository is supplied with an established stack.
+This avoids unnecessary framework setup while preserving the required behavior. The data layer can be replaced by PostgreSQL later without changing the board UI or API contract.
 
 ## Phases and commit gates
 
@@ -56,72 +55,40 @@ Existing repository conventions take precedence if a GitHub repository is suppli
 
 Commit: `chore: initialize task management application`
 
-### Phase 1 — Database and domain models
+### Phase 1 — Simple data model and API
 
-- Configure PostgreSQL and Prisma.
-- Add users, projects, project members, and tasks.
-- Add status, priority, and role enums.
-- Add migrations and representative seed data.
+- Add a small project, user, membership, and task model.
+- Seed representative tasks and team members.
+- Expose the board and task CRUD through the backend.
+- Keep validation and workload calculations on the server.
 
 Commit: `feat: add relational task management data model`
 
-### Phase 2 — Project and membership APIs
+### Phase 2 — Board UI
 
-- Implement project CRUD.
-- Implement project member listing, creation, and removal.
-- Add validation and consistent error responses.
+- Render the three Kanban columns and counters.
+- Add task creation, editing, deletion, and priority filtering.
+- Add drag-and-drop status changes.
 
 Commit: `feat: implement project and membership APIs`
 
-### Phase 3 — Task CRUD and Kanban APIs
+### Phase 3 — Team and workload UI
 
-- Implement task CRUD.
-- Implement status changes and priority filtering.
-- Return accurate column counters.
-- Validate project membership and task input.
+- Display project members and task assignments.
+- Add members to the project.
+- Display the red warning for users with more than five in-progress tasks.
 
 Commit: `feat: implement task CRUD and Kanban state APIs`
 
-### Phase 4 — Workload balancing
-
-- Add the server-side workload calculation service.
-- Return per-user in-progress counts and `overloaded` state.
-- Test the five-task boundary and multi-user behavior.
-
-Commit: `feat: add server-side workload balancing`
-
-### Phase 5 — Kanban frontend
-
-- Build the board, columns, task cards, counters, filters, and create-task flow.
-- Add loading, empty, and error states.
-
-Commit: `feat: build Kanban board interface`
-
-### Phase 6 — Drag and drop and task editing
-
-- Persist drag-and-drop status changes.
-- Add task editing, deletion, due dates, and priority display.
-- Roll back failed mutations.
-
-Commit: `feat: add task drag-and-drop and editing`
-
-### Phase 7 — Team and workload UI
-
-- Display project members.
-- Add and remove members.
-- Display workload counts and the overloaded avatar warning.
-
-Commit: `feat: add team management and workload indicators`
-
-### Phase 8 — Testing and documentation
+### Phase 4 — Testing and polish
 
 - Add unit, API integration, and frontend tests.
 - Verify responsive and accessible behavior.
-- Complete setup and API documentation.
+- Complete setup documentation.
 
 Commit: `test: cover task management workflows`
 
-### Phase 9 — Release preparation
+### Phase 5 — Release preparation
 
 - Remove debug artifacts.
 - Verify clean setup, migrations, tests, and production build.
@@ -131,7 +98,7 @@ Commit: `chore: prepare task management app for submission`
 
 ## Definition of done
 
-- The complete board workflow works against PostgreSQL.
+- The complete board workflow works through the simple API.
 - Task and membership mutations are validated server-side.
 - Drag-and-drop changes persist.
 - Priority filtering and column counters are accurate.

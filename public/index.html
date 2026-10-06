@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Task Board</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="header">
+      <div><p class="eyebrow">TEAM WORKSPACE</p><h1>My Task Board</h1><p class="muted">Keep work moving, one task at a time.</p></div>
+      <button id="new-task" class="primary">+ New task</button>
+    </header>
+    <section class="toolbar">
+      <label>Filter by priority <select id="priority-filter"><option value="ALL">All priorities</option><option value="HIGH">High</option><option value="MEDIUM">Medium</option><option value="LOW">Low</option></select></label>
+      <span id="message" class="muted"></span>
+    </section>
+    <section id="board" class="board" aria-label="Kanban board"></section>
+    <section class="team-section"><div class="section-heading"><h2>Team</h2><button id="add-member" class="secondary">+ Add member</button></div><div id="team" class="team"></div></section>
+  </main>
+  <dialog id="task-dialog">
+    <form id="task-form" method="dialog">
+      <h2 id="dialog-title">New task</h2><input type="hidden" id="task-id">
+      <label>Title<input id="title" required maxlength="100"></label>
+      <label>Description<textarea id="description" rows="3"></textarea></label>
+      <div class="form-row"><label>Priority<select id="priority"><option>HIGH</option><option selected>MEDIUM</option><option>LOW</option></select></label><label>Due date<input id="due-date" type="date"></label></div>
+      <label>Assignee<select id="assignee"></select></label>
+      <div class="actions"><button type="button" id="delete-task" class="secondary">Delete</button><button type="button" id="cancel" class="secondary">Cancel</button><button class="primary">Save task</button></div>
+    </form>
+  </dialog>
+  <script src="/app.js"></script>
+</body>
+</html>
