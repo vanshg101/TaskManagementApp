@@ -11,6 +11,7 @@ The simple MVP and automated API tests are complete. See [IMPLEMENTATION_PLAN.md
 - Node.js built-in HTTP server
 - Plain HTML, CSS, and browser JavaScript
 - Server-side in-memory data model for the assessment MVP
+- PostgreSQL persistence when `USE_MEMORY` is not set to `true`
 
 ## Development
 
@@ -25,6 +26,8 @@ npm start
 The API listens on `http://localhost:3000` by default.
 
 Open `http://localhost:3000` in a browser to use the Kanban board.
+
+The development environment can use the running PostgreSQL container with the values in `.env.example`. The database schema and seed data are created automatically on first start.
 
 ### Test
 

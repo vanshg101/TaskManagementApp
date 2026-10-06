@@ -98,10 +98,14 @@ Commit: `chore: prepare task management app for submission`
 
 ## Definition of done
 
-- The complete board workflow works through the simple API.
+- The complete board workflow works through the simple API and PostgreSQL.
 - Task and membership mutations are validated server-side.
 - Drag-and-drop changes persist.
 - Priority filtering and column counters are accurate.
 - Workload warnings use the server-calculated threshold `> 5`.
-- Automated tests cover the important business rules.
+- Automated tests cover the important business rules, deletion, and owner protection.
 - The README provides reproducible setup and run instructions.
+
+## Current completion status
+
+The MVP now supports PostgreSQL persistence, project retrieval/update, project membership records, member creation/removal, owner protection, task CRUD, workload balancing, and the browser Kanban workflow. Tests use isolated memory mode; local development uses the PostgreSQL connection in `.env.example`.

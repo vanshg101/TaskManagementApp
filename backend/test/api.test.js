@@ -17,7 +17,7 @@ async function request(path, options) {
 before(async () => {
   serverProcess = spawn(process.execPath, ["src/server.js"], {
     cwd: fileURLToPath(new URL("..", import.meta.url)),
-    env: { ...process.env, PORT: String(port) },
+    env: { ...process.env, PORT: String(port), USE_MEMORY: "true" },
     stdio: "ignore"
   });
   await new Promise((resolve, reject) => {
@@ -111,4 +111,9 @@ test("deletes tasks and creates members", async () => {
   });
   assert.equal(member.response.status, 201);
   assert.equal(member.body.name, "Neha");
+});
+
+test("protects the project owner from removal", async () => {
+  const result = await request("/api/members/u1", { method: "DELETE" });
+  assert.equal(result.response.status, 403);
 });
