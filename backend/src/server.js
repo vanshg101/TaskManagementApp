@@ -21,7 +21,7 @@ const tasks = [
 
 function sendJson(response, status, body) {
   response.writeHead(status, { "Content-Type": "application/json" });
-  response.end(JSON.stringify(body));
+  response.end(status === 204 ? undefined : JSON.stringify(body));
 }
 
 async function readJson(request) {
